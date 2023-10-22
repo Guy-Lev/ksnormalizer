@@ -1,10 +1,13 @@
 package com.kenshoo.integrations.service;
 
-import com.kenshoo.integrations.entity.Integration;
 import com.kenshoo.integrations.dao.IntegrationsDao;
+import com.kenshoo.integrations.entity.Integration;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class IntegrationsServiceImpl implements IntegrationsService {
@@ -56,14 +59,14 @@ public class IntegrationsServiceImpl implements IntegrationsService {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
 
-        for ( String id : uniqueIds  ) {
+        for (String id : uniqueIds) {
             try {
-                    String normalizedId = normalizerClient.normalize(id);
-                    //check if the id is already normalized or not
-                    if (!id.equals(normalizedId)) {
-                        //if the id is not equal to normalizedID (the rows are affected), calculate
-                        affectedRows += integrationsDao.updateKsId(id, normalizedId);
-                    }
+                String normalizedId = normalizerClient.normalize(id);
+                //check if the id is already normalized or not
+                if (!id.equals(normalizedId)) {
+                    //if the id is not equal to normalizedID (the rows are affected), calculate
+                    affectedRows += integrationsDao.updateKsId(id, normalizedId);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

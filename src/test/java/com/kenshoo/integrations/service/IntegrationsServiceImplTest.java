@@ -19,7 +19,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IntegrationsServiceImplTest {
-
     @Mock
     private KsNormalizerClient normalizerClient;
 
@@ -43,6 +42,7 @@ public class IntegrationsServiceImplTest {
 
         when(integrationsDao.updateKsId(anyString(), anyString())).thenReturn(1);
     }
+
     @Test
 
     public void testInsertIntegration() {
@@ -62,20 +62,20 @@ public class IntegrationsServiceImplTest {
 
     @Test
     public void testFetchIntegrationsByKsId() {
-            // Set up
-            when(integrationsDao.fetchByKsId("normalized_123")).thenReturn(Arrays.asList(
-                    new Integration(1, "normalized_123", "data1"),
-                    new Integration(2, "normalized_123", "data2")
-            ));
+        // Set up
+        when(integrationsDao.fetchByKsId("normalized_123")).thenReturn(Arrays.asList(
+                new Integration(1, "normalized_123", "data1"),
+                new Integration(2, "normalized_123", "data2")
+        ));
 
-            // Call the method to test
-            List<Integration> result = integrationsService.fetchIntegrationsByKsId("123");
+        // Call the method to test
+        List<Integration> result = integrationsService.fetchIntegrationsByKsId("123");
 
-            // Aassertions based on the expected behavior
-            assertNotNull(result);
-            assertEquals(2, result.size());
-            assertEquals("data1", result.get(0).getData());
-            assertEquals("data2", result.get(1).getData());
+        // Aassertions based on the expected behavior
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("data1", result.get(0).getData());
+        assertEquals("data2", result.get(1).getData());
 
     }
 
